@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # README
 
 This README would normally document whatever steps are necessary to get the
@@ -22,3 +23,7 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+=======
+# gepetron-backend
+Gepetron is a voice-controlled 3D chatbot app with a customizable AI avatar and dynamic personality, built to offer a playful and personalized virtual companion experience.
+>>>>>>> f2804af813920560414ddd7d128ad31b0c200fca
