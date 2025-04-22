@@ -1,17 +1,25 @@
 Rails.application.routes.draw do
-  # Rotas para UsersController
-  get  "/users/:id", to: "users#show",   as: "user"
-  post "/users",     to: "users#create", as: "create_user"
+  get "/users", to: "users#index"
+  get "/users/:id", to: "users#show"
+  post "/users", to: "users#create"
+  put "/users/:id", to: "users#update"
+  delete "/users/:id", to: "users#destroy"
 
-  # Rotas para MessagesController
-  get  "/users/:user_id/messages", to: "messages#index", as: "user_messages"
-  post "/users/:user_id/messages", to: "messages#create", as: "create_user_message"
+  get "/messages", to: "messages#index"
+  get "/messages/:id", to: "messages#show"
+  post "/messages", to: "messages#create"
+  put "/messages/:id", to: "messages#update"
+  delete "/messages/:id", to: "messages#destroy"
 
-  # Rotas para CommandsController
-  get  "/users/:user_id/commands", to: "commands#index", as: "user_commands"
-  post "/users/:user_id/commands", to: "commands#create", as: "create_user_command"
+  get "/commands", to: "commands#index"
+  get "/commands/:id", to: "commands#show"
+  post "/commands", to: "commands#create"
+  put "/commands/:id", to: "commands#update"
+  delete "/commands/:id", to: "commands#destroy"
 
-  # Rotas para PersonalitiesController
-  get "/personalities",     to: "personalities#index", as: "personalities"
-  get "/personalities/:id", to: "personalities#show",  as: "personality"
+  get "/personalities", to: "personalities#index"
+  get "/personalities/:id", to: "personalities#show"
+  post "/personalities", to: "personalities#create"
+  put "/personalities/:id", to: "personalities#update"
+  delete "/personalities/:id", to: "personalities#destroy"
 end

@@ -1,23 +1,41 @@
 class CommandsController < ApplicationController
   def index
-    user = User.find(params[:user_id])
-    render json: user.commands.order(created_at: :desc)
+    @commands = Command.all
+    render json: @commands
+  end
+
+  def show
+    @command = Command.find(params[:id])
+    render json: @command
   end
 
   def create
-    user = User.find(params[:user_id])
-    command = user.commands.new(command_params)
-
-    if command.save
-      render json: command, status: :created
+    @command = Command.new(command_params)
+    if @command.save
+      render json: @command, status: :created
     else
-      render json: { errors: command.errors.full_messages }, status: :unprocessable_entity
+      render json: @command.errors, status: :unprocessable_entity
     end
+  end
+
+  def update
+    @command = Command.find(params[:id])
+    if @command.update(command_params)
+      render json: @command
+    else
+      render json: @command.errors, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @command = Command.find(params[:id])
+    @command.destroy
+    head :no_content
   end
 
   private
 
   def command_params
-    params.require(:command).permit(:command_type, :content, :status)
+    params.require(:command).permit(:trigger, :action, :user_id)
   end
 end
