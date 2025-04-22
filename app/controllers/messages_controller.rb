@@ -1,40 +1,23 @@
 class MessagesController < ApplicationController
-  before_action :set_user
-
   def index
-    render json: @user.messages
+    user = User.find(params[:user_id])
+    render json: user.messages.order(created_at: :desc)
   end
 
   def create
-    message = @user.messages.create(message_params)
+    user = User.find(params[:user_id])
+    message = user.messages.new(message_params)
 
-    # Simulação de resposta automática simples
-    if message.sender == "user"
-      message.response = generate_response(message.content)
-      message.save
+    if message.save
+      render json: message, status: :created
+    else
+      render json: { errors: message.errors.full_messages }, status: :unprocessable_entity
     end
-
-    render json: message
   end
 
   private
 
-  def set_user
-    @user = User.find(params[:user_id])
-  end
-
   def message_params
-    params.require(:message).permit(:content, :sender)
-  end
-
-  def generate_response(content)
-    case content.downcase
-    when /piada/
-      "Por que o programador não gostava do mar? Porque tinha muitos bugs."
-    when /nome/
-      "Meu nome é Gepetron, prazer!"
-    else
-      "Não entendi muito bem... pode repetir?"
-    end
+    params.require(:message).permit(:content, :sender, :response)
   end
 end
