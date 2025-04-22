@@ -1,5 +1,5 @@
 class Command < ApplicationRecord
   belongs_to :user
 
-  enum :status, [ :pending, :executed, :failed ]
+  validates :trigger, :action, presence: true
 end

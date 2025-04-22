@@ -1,3 +1,5 @@
 class Personality < ApplicationRecord
-  # futuramente: has_many :users or :avatars
+  belongs_to :user
+
+  validates :tone, :description, presence: true
 end
