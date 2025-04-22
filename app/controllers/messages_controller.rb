@@ -1,23 +1,41 @@
 class MessagesController < ApplicationController
   def index
-    user = User.find(params[:user_id])
-    render json: user.messages.order(created_at: :desc)
+    @messages = Message.all
+    render json: @messages
+  end
+
+  def show
+    @message = Message.find(params[:id])
+    render json: @message
   end
 
   def create
-    user = User.find(params[:user_id])
-    message = user.messages.new(message_params)
-
-    if message.save
-      render json: message, status: :created
+    @message = Message.new(message_params)
+    if @message.save
+      render json: @message, status: :created
     else
-      render json: { errors: message.errors.full_messages }, status: :unprocessable_entity
+      render json: @message.errors, status: :unprocessable_entity
     end
+  end
+
+  def update
+    @message = Message.find(params[:id])
+    if @message.update(message_params)
+      render json: @message
+    else
+      render json: @message.errors, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @message = Message.find(params[:id])
+    @message.destroy
+    head :no_content
   end
 
   private
 
   def message_params
-    params.require(:message).permit(:content, :sender, :response)
+    params.require(:message).permit(:content, :user_id)
   end
 end
