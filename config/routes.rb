@@ -22,4 +22,6 @@ Rails.application.routes.draw do
   post "/personalities", to: "personalities#create"
   put "/personalities/:id", to: "personalities#update"
   delete "/personalities/:id", to: "personalities#destroy"
+
+  post "/interact", to: "interactions#create"
 end
